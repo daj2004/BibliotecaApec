@@ -1,8 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio - Biblioteca UNAPEC";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="fw-bold display-6">📚 Sistema de Gestión de Biblioteca UNAPEC</h1>
+        <p class="text-muted mb-0">Selecciona un módulo para continuar:</p>
+    </div>
+
+    <div class="row g-3 justify-content-center">
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-primary w-100" href="/TiposBibliografia">📖 Tipos de Bibliografía</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-primary w-100" href="/Editoras">🏢 Editoras</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-primary w-100" href="/Ciencias">🔬 Ciencias</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-primary w-100" href="/Idiomas">🌍 Idiomas</a>
+        </div>
+    </div>
+
+    <div class="row g-3 justify-content-center mt-2">
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-success w-100" href="/Autores">✍️ Autores</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-success w-100" href="/Libros">📚 Libros</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-success w-100" href="/Usuarios">👥 Usuarios</a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a class="btn btn-success w-100" href="/Empleados">👨‍💼 Empleados</a>
+        </div>
+    </div>
+
+    <div class="row g-3 justify-content-center mt-2">
+        <div class="col-md-6 col-sm-12">
+            <a class="btn btn-warning w-100" href="/Prestamos">📗 Préstamos y Devoluciones</a>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <a class="btn btn-info w-100" href="/Reportes">📊 Reportes</a>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/Home/AcercaDe" class="btn btn-outline-secondary">
+            ℹ️ Acerca de
+        </a>
+    </div>
 </div>

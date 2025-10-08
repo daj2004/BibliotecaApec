@@ -1,0 +1,71 @@
+@model BibliotecaUNAPEC.Models.Libro
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SignaturaTopografica" class="control-label"></label>
+                <input asp-for="SignaturaTopografica" class="form-control" />
+                <span asp-validation-for="SignaturaTopografica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ISBN" class="control-label"></label>
+                <input asp-for="ISBN" class="form-control" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoBibliografiaId" class="control-label"></label>
+                <select asp-for="TipoBibliografiaId" class="form-control" asp-items="ViewBag.TipoBibliografiaId"></select>
+                <span asp-validation-for="TipoBibliografiaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditoraId" class="control-label"></label>
+                <select asp-for="EditoraId" class="form-control" asp-items="ViewBag.EditoraId"></select>
+                <span asp-validation-for="EditoraId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CienciaId" class="control-label"></label>
+                <select asp-for="CienciaId" class="form-control" asp-items="ViewBag.CienciaId"></select>
+                <span asp-validation-for="CienciaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdiomaId" class="control-label"></label>
+                <select asp-for="IdiomaId" class="form-control" asp-items="ViewBag.IdiomaId"></select>
+                <span asp-validation-for="IdiomaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AñoPublicacion" class="control-label"></label>
+                <input asp-for="AñoPublicacion" class="form-control" />
+                <span asp-validation-for="AñoPublicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <input asp-for="Estado" class="form-control" />
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

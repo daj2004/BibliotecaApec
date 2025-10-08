@@ -1,4 +1,4 @@
-namespace Biblioteca.Models
+namespace BibliotecaUnapec.Models
 {
     public class ErrorViewModel
     {
