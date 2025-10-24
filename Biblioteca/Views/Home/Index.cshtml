@@ -1,4 +1,6 @@
-﻿@{
+﻿@model BibliotecaUNAPEC.Models.HomeIndexViewModel
+
+@{
     ViewData["Title"] = "Inicio - Biblioteca UNAPEC";
 }
 
@@ -52,4 +54,101 @@
             ℹ️ Acerca de
         </a>
     </div>
+
+    <hr class="my-4">
+
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen</h5>
+                    <p>Total libros: <strong>@Model.TotalLibros</strong></p>
+                    <p>Total usuarios: <strong>@Model.TotalUsuarios</strong></p>
+                    <p>Préstamos activos: <strong>@Model.TotalPrestamosActivos</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <form method="get" class="row g-2">
+                <div class="col-md-6">
+                    <input type="text" name="search" value="@Model.Search" placeholder="Buscar libro, ISBN o signatura" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <select name="cienciaId" class="form-select">
+                        <option value="">Todas las ciencias</option>
+                        @foreach (var c in Model.Ciencias)
+                        {
+                            <option value="@c.Id" selected="@(Model.CienciaId == c.Id ? "selected" : null)">@c.Descripcion</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="sort" class="form-select">
+                        <option value="">Orden</option>
+                        <option value="titulo_asc" selected="@(Model.Sort == "titulo_asc" ? "selected" : "")">Título ↑</option>
+                        <option value="titulo_desc" selected="@(Model.Sort == "titulo_desc" ? "selected" : "")">Título ↓</option>
+                        <option value="anyo_desc" selected="@(Model.Sort == "anyo_desc" ? "selected" : "")">Año ↓</option>
+                        <option value="anyo_asc" selected="@(Model.Sort == "anyo_asc" ? "selected" : "")">Año ↑</option>
+                    </select>
+                </div>
+                <div class="col-12 mt-2">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Signatura</th>
+                <th>ISBN</th>
+                <th>Ciencia</th>
+                <th>Idioma</th>
+                <th>Año</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var libro in Model.UltimosLibros)
+            {
+                <tr>
+                    <td>@libro.Descripcion</td>
+                    <td>@libro.SignaturaTopografica</td>
+                    <td>@libro.ISBN</td>
+                    <td>@libro.Ciencia?.Descripcion</td>
+                    <td>@libro.Idioma?.Descripcion</td>
+                    <td>@libro.AñoPublicacion</td>
+                    <td>@libro.Estado</td>
+                    <td>
+                        <a asp-controller="Libros" asp-action="Edit" asp-route-id="@libro.Id">Editar</a> |
+                        <a asp-controller="Libros" asp-action="Details" asp-route-id="@libro.Id">Detalles</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Paginación">
+            <ul class="pagination">
+                @for (int p = 1; p <= Model.TotalPages; p++)
+                {
+                    <li class="page-item @(p == Model.Page ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-cienciaId="@Model.CienciaId"
+                           asp-route-sort="@Model.Sort"
+                           asp-route-page="@p"
+                           asp-route-pageSize="@Model.PageSize">@p</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>
