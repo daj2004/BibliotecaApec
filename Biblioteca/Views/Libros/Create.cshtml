@@ -1,66 +1,93 @@
 @model BibliotecaUNAPEC.Models.Libro
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
-<h1>Create</h1>
+<h1>Crear libro</h1>
 
 <h4>Libro</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                <span asp-validation-for="Descripcion" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SignaturaTopografica" class="control-label"></label>
+
+            <div class="mb-3">
+                <label asp-for="SignaturaTopografica" class="form-label"></label>
                 <input asp-for="SignaturaTopografica" class="form-control" />
-                <span asp-validation-for="SignaturaTopografica" class="text-danger"></span>
+                <span asp-validation-for="SignaturaTopografica" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ISBN" class="control-label"></label>
+
+            <div class="mb-3">
+                <label asp-for="ISBN" class="form-label"></label>
                 <input asp-for="ISBN" class="form-control" />
-                <span asp-validation-for="ISBN" class="text-danger"></span>
+                <span asp-validation-for="ISBN" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TipoBibliografiaId" class="control-label"></label>
-                <select asp-for="TipoBibliografiaId" class ="form-control" asp-items="ViewBag.TipoBibliografiaId"></select>
+
+            <div class="mb-3">
+                <label asp-for="TipoBibliografiaId" class="form-label"></label>
+                <select asp-for="TipoBibliografiaId" class="form-select" asp-items="ViewBag.TipoBibliografiaId">
+                    <option value="0">-- Seleccione tipo --</option>
+                </select>
+                <span asp-validation-for="TipoBibliografiaId" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EditoraId" class="control-label"></label>
-                <select asp-for="EditoraId" class ="form-control" asp-items="ViewBag.EditoraId"></select>
+
+            <div class="mb-3">
+                <label asp-for="EditoraId" class="form-label"></label>
+                <select asp-for="EditoraId" class="form-select" asp-items="ViewBag.EditoraId">
+                    <option value="0">-- Seleccione editora --</option>
+                </select>
+                <span asp-validation-for="EditoraId" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CienciaId" class="control-label"></label>
-                <select asp-for="CienciaId" class ="form-control" asp-items="ViewBag.CienciaId"></select>
+
+            <div class="mb-3">
+                <label asp-for="CienciaId" class="form-label"></label>
+                <select asp-for="CienciaId" class="form-select" asp-items="ViewBag.CienciaId">
+                    <option value="0">-- Seleccione ciencia --</option>
+                </select>
+                <span asp-validation-for="CienciaId" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IdiomaId" class="control-label"></label>
-                <select asp-for="IdiomaId" class ="form-control" asp-items="ViewBag.IdiomaId"></select>
+
+            <div class="mb-3">
+                <label asp-for="IdiomaId" class="form-label"></label>
+                <select asp-for="IdiomaId" class="form-select" asp-items="ViewBag.IdiomaId">
+                    <option value="0">-- Seleccione idioma --</option>
+                </select>
+                <span asp-validation-for="IdiomaId" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AñoPublicacion" class="control-label"></label>
-                <input asp-for="AñoPublicacion" class="form-control" />
-                <span asp-validation-for="AñoPublicacion" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label asp-for="AñoPublicacion" class="form-label"></label>
+                <input asp-for="AñoPublicacion" type="number" min="1500" max="2100" class="form-control" />
+                <span asp-validation-for="AñoPublicacion" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label asp-for="Estado" class="form-label"></label>
+                <select asp-for="Estado" class="form-select">
+                    <option value="A">Activo</option>
+                    <option value="I">Inactivo</option>
+                </select>
+                <span asp-validation-for="Estado" class="invalid-feedback d-block"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 

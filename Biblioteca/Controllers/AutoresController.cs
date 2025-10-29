@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using BibliotecaUNAPEC.Data;
 using BibliotecaUNAPEC.Models;
 
@@ -16,23 +18,43 @@ namespace BibliotecaUNAPEC.Controllers
             return View(await autores.ToListAsync());
         }
 
+        private void PopulateIdiomas(int? selectedId = null)
+        {
+            ViewBag.IdiomaNativoId = new SelectList(
+                _context.Idiomas.OrderBy(i => i.Descripcion).ToList(),
+                "Id",
+                "Descripcion",
+                selectedId);
+        }
+
         public IActionResult Create()
         {
-            ViewBag.Idiomas = _context.Idiomas.ToList();
-            return View();
+            PopulateIdiomas();
+            return View(new Autor { Estado = 'A' });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Autor autor)
         {
+            if (autor == null)
+            {
+                ModelState.AddModelError(string.Empty, "Datos de autor inválidos.");
+                PopulateIdiomas();
+                return View(new Autor { Estado = 'A' });
+            }
+
+            if (autor.IdiomaNativoId <= 0)
+                ModelState.AddModelError(nameof(autor.IdiomaNativoId), "Seleccione un idioma nativo.");
+
             if (ModelState.IsValid)
             {
                 _context.Add(autor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Idiomas = _context.Idiomas.ToList();
+
+            PopulateIdiomas(autor.IdiomaNativoId);
             return View(autor);
         }
 
@@ -40,7 +62,7 @@ namespace BibliotecaUNAPEC.Controllers
         {
             var autor = await _context.Autores.FindAsync(id);
             if (autor == null) return NotFound();
-            ViewBag.Idiomas = _context.Idiomas.ToList();
+            PopulateIdiomas(autor.IdiomaNativoId);
             return View(autor);
         }
 
@@ -49,13 +71,18 @@ namespace BibliotecaUNAPEC.Controllers
         public async Task<IActionResult> Edit(int id, Autor autor)
         {
             if (id != autor.Id) return NotFound();
+
+            if (autor.IdiomaNativoId <= 0)
+                ModelState.AddModelError(nameof(autor.IdiomaNativoId), "Seleccione un idioma nativo.");
+
             if (ModelState.IsValid)
             {
                 _context.Update(autor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Idiomas = _context.Idiomas.ToList();
+
+            PopulateIdiomas(autor.IdiomaNativoId);
             return View(autor);
         }
 
