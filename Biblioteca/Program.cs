@@ -17,7 +17,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
 var app = builder.Build();
 
 // Configuración del pipeline HTTP
@@ -32,11 +31,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
+// Registrar sesión antes de autorización para que los controladores puedan usarla
 app.UseSession();
 
-
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

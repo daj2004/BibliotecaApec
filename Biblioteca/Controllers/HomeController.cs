@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BibliotecaUNAPEC.Data;
 using BibliotecaUNAPEC.Models;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,13 @@ namespace BibliotecaUNAPEC.Controllers
 
         public async Task<IActionResult> Index(string? search, int? cienciaId, string? sort, int page = 1, int pageSize = 10)
         {
+            // Mostrar login al abrir la aplicación, sin cambiar rutas globales
+            var user = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(user))
+            {
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Index", "Home") });
+            }
+
             var librosQuery = _context.Libros
                 .Include(l => l.Ciencia)
                 .Include(l => l.Editora)
@@ -73,4 +81,3 @@ namespace BibliotecaUNAPEC.Controllers
         }
     }
 }
-    

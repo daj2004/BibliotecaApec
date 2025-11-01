@@ -1,0 +1,78 @@
+@model BibliotecaUNAPEC.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar sesión";
+    var returnUrl = ViewData["ReturnUrl"] as string ?? "";
+}
+
+<style>
+    .login-bg {
+        background: linear-gradient(135deg, #0d6efd 0%, #6dd3ff 100%);
+        min-height: 100vh;
+    }
+    .login-card { max-width: 420px; border-radius: 12px; }
+    .brand { font-weight: 700; letter-spacing: .4px; }
+</style>
+
+<div class="login-bg d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-9 col-md-7 col-lg-5">
+                <div class="card shadow-sm login-card mx-auto">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-3">
+                            <h3 class="brand mb-0">Biblioteca UNAPEC</h3>
+                            <small class="text-muted">Acceso al sistema</small>
+                        </div>
+
+                        <form asp-action="Login" method="post" autocomplete="off">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="returnUrl" value="@returnUrl" />
+
+                            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                            <div class="mb-3">
+                                <label asp-for="Username" class="form-label"></label>
+                                <input asp-for="Username" id="usernameInput" class="form-control" placeholder="Usuario" autofocus />
+                                <span asp-validation-for="Username" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label"></label>
+                                <div class="input-group">
+                                    <input asp-for="Password" id="passwordInput" type="password" class="form-control" placeholder="Contraseña" />
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword" aria-label="Mostrar contraseña">???</button>
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-link">Ir al sitio sin iniciar sesión</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            const toggle = document.getElementById('togglePassword');
+            if (!toggle) return;
+            toggle.addEventListener('click', function () {
+                const pwd = document.getElementById('passwordInput');
+                if (!pwd) return;
+                pwd.type = pwd.type === 'password' ? 'text' : 'password';
+                toggle.textContent = toggle.textContent === '???' ? '??' : '???';
+            });
+        })();
+    </script>
+}   
