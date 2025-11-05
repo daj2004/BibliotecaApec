@@ -1,0 +1,15 @@
+@model char?
+
+@{
+    var name = ViewData.TemplateInfo.GetFullHtmlFieldName("");
+    // Eliminado el uso de GetFullHtmlFieldId porque no existe en TemplateInfo
+    var id = name.Replace('.', '_'); // Genera un id válido para HTML
+    var val = Model?.ToString() ?? "";
+}
+
+<select id="@id" name="@name" class="form-select">
+    <option value="">-- Seleccione estado --</option>
+    <option value="A" selected="@(val == "A")">Activo</option>
+    <option value="I" selected="@(val == "I")">Inactivo</option>
+</select>
+<span class="text-danger small" data-valmsg-for="@name" data-valmsg-replace="true"></span>
