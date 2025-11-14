@@ -8,13 +8,13 @@ namespace BibliotecaUNAPEC.Models
         public int Id { get; set; }
 
         public int EmpleadoId { get; set; }
-        public Empleado Empleado { get; set; }
+        public Empleado? Empleado { get; set; }
 
         public int LibroId { get; set; }
-        public Libro Libro { get; set; }
+        public Libro? Libro { get; set; }
 
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public Usuario? Usuario { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime FechaPrestamo { get; set; } = DateTime.Now;

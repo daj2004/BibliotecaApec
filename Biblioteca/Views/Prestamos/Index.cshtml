@@ -1,0 +1,51 @@
+@model IEnumerable<BibliotecaUNAPEC.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Préstamos y Devoluciones";
+}
+
+<div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Préstamos y Devoluciones</h2>
+        <a class="btn btn-success" asp-action="Create">Nuevo Préstamo</a>
+    </div>
+
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>No. Prestamo</th>
+                <th>Empleado</th>
+                <th>Libro</th>
+                <th>Usuario</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Devolución</th>
+                <th>Monto x Día</th>
+                <th>Cantidad de días</th>
+                <th>Comentario</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Empleado?.Nombre</td>
+                    <td>@item.Libro?.Descripcion</td>
+                    <td>@item.Usuario?.Nombre</td>
+                    <td>@item.FechaPrestamo.ToString("yyyy-MM-dd")</td>
+                    <td>@(item.FechaDevolucion.HasValue ? item.FechaDevolucion.Value.ToString("yyyy-MM-dd") : "")</td>
+                    <td>@item.MontoPorDia.ToString("C")</td>
+                    <td>@item.CantidadDias</td>
+                    <td>@item.Comentario</td>
+                    <td>@item.Estado</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

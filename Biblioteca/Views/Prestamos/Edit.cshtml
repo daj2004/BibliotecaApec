@@ -1,0 +1,95 @@
+@model BibliotecaUNAPEC.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Editar Préstamo";
+}
+
+<div class="container py-3">
+    <h2>Editar Préstamo</h2>
+
+    <form asp-action="Edit" method="post" class="row g-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-4">
+            <label asp-for="EmpleadoId" class="form-label">Empleado</label>
+            <select asp-for="EmpleadoId" class="form-select">
+                <option value="">-- Seleccione --</option>
+                @foreach (var e in (IEnumerable<dynamic>)ViewBag.Empleados)
+                {
+                    <option value="@e.Id" selected="@(Model?.EmpleadoId == e.Id ? "selected" : null)">@e.Nombre</option>
+                }
+            </select>
+            <span asp-validation-for="EmpleadoId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="UsuarioId" class="form-label">Usuario</label>
+            <select asp-for="UsuarioId" class="form-select">
+                <option value="">-- Seleccione --</option>
+                @foreach (var u in (IEnumerable<dynamic>)ViewBag.Usuarios)
+                {
+                    <option value="@u.Id" selected="@(Model?.UsuarioId == u.Id ? "selected" : null)">@u.Nombre</option>
+                }
+            </select>
+            <span asp-validation-for="UsuarioId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="LibroId" class="form-label">Libro</label>
+            <select asp-for="LibroId" class="form-select">
+                <option value="">-- Seleccione --</option>
+                @foreach (var l in (IEnumerable<dynamic>)ViewBag.Libros)
+                {
+                    <option value="@l.Id" selected="@(Model?.LibroId == l.Id ? "selected" : null)">@l.Descripcion</option>
+                }
+            </select>
+            <span asp-validation-for="LibroId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3">
+            <label asp-for="FechaPrestamo" class="form-label">Fecha Préstamo</label>
+            <input asp-for="FechaPrestamo" type="date" class="form-control" />
+            <span asp-validation-for="FechaPrestamo" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3">
+            <label asp-for="FechaDevolucion" class="form-label">Fecha Devolución</label>
+            <input asp-for="FechaDevolucion" type="date" class="form-control" />
+            <span asp-validation-for="FechaDevolucion" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="MontoPorDia" class="form-label">Monto x Día</label>
+            <input asp-for="MontoPorDia" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="MontoPorDia" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="CantidadDias" class="form-label">Cantidad de días</label>
+            <input asp-for="CantidadDias" type="number" class="form-control" />
+            <span asp-validation-for="CantidadDias" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Comentario" class="form-label">Comentario</label>
+            <textarea asp-for="Comentario" class="form-control" rows="2"></textarea>
+            <span asp-validation-for="Comentario" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3">
+            <label asp-for="Estado" class="form-label">Estado</label>
+            <input asp-for="Estado" class="form-control" />
+            <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 mt-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
