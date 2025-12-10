@@ -1,0 +1,143 @@
+@model BibliotecaUNAPEC.Models.RentasReportViewModel
+
+@{
+    ViewData["Title"] = "Reporte de Préstamos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 fade-in">
+    <div>
+        <h1 class="fw-bold mb-0">📊 Reportes y Estadísticas</h1>
+        <p class="text-muted">Generación de informes de préstamos</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary shadow-sm">
+        <i class="bi bi-arrow-left me-2"></i>Volver
+    </a>
+</div>
+
+<div class="row fade-in">
+    <div class="col-md-12 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <a class="d-flex justify-content-between align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#filtersCollapse" role="button" aria-expanded="true" aria-controls="filtersCollapse">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-funnel me-2 text-primary"></i>Filtros de Búsqueda</h5>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+            </div>
+            <div class="collapse show" id="filtersCollapse">
+                <div class="card-body p-4">
+                    <form asp-action="Report" method="post" class="row g-3">
+                        
+                        <div class="col-md-6">
+                            <label asp-for="FechaDesde" class="form-label fw-bold">Fecha Desde</label>
+                            <input asp-for="FechaDesde" type="date" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="FechaHasta" class="form-label fw-bold">Fecha Hasta</label>
+                            <input asp-for="FechaHasta" type="date" class="form-control" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Tipos de Bibliografía</label>
+                            <select asp-for="TipoBibliografiaIds" asp-items="ViewBag.TiposBibliografia" multiple class="form-select" size="4"></select>
+                            <small class="text-muted">Ctrl + Click para múltiple selección</small>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Idiomas</label>
+                            <select asp-for="IdiomaIds" asp-items="ViewBag.Idiomas" multiple class="form-select" size="4"></select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Libros</label>
+                            <select asp-for="LibroIds" asp-items="ViewBag.Libros" multiple class="form-select" size="4"></select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Usuarios</label>
+                            <select asp-for="UsuarioIds" asp-items="ViewBag.Usuarios" multiple class="form-select" size="4"></select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Empleados</label>
+                            <select asp-for="EmpleadoIds" asp-items="ViewBag.Empleados" multiple class="form-select" size="4"></select>
+                        </div>
+
+                        <div class="col-12 d-flex gap-2 mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary px-4"><i class="bi bi-search me-2"></i>Generar Reporte</button>
+                            <button type="submit" name="export" value="csv" class="btn btn-outline-success"><i class="bi bi-file-earmark-spreadsheet me-2"></i>Exportar CSV</button>
+                            <button type="button" class="btn btn-outline-danger ms-auto" onclick="clearFilters()"><i class="bi bi-x-circle me-2"></i>Limpiar Filtros</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clearFilters(){
+        document.querySelectorAll('#filtersCollapse form select').forEach(s => s.selectedIndex = -1);
+        document.querySelectorAll('#filtersCollapse form input[type=date]').forEach(i => i.value = '');
+    }
+</script>
+
+@if (Model?.Results?.Any() == true)
+{
+    <div class="card border-0 shadow-sm fade-in">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold">Resultados del Reporte</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Libro</th>
+                            <th>Tipo</th>
+                            <th>Idioma</th>
+                            <th>Usuario</th>
+                            <th>Empleado</th>
+                            <th class="text-end">Monto/Día</th>
+                            <th class="text-end">Días</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var r in Model.Results)
+                        {
+                            <tr>
+                                <td>@r.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                                <td class="fw-bold">@r.Libro</td>
+                                <td>@r.TipoBibliografia</td>
+                                <td>@r.Idioma</td>
+                                <td>@r.Usuario</td>
+                                <td class="text-muted small">@r.Empleado</td>
+                                <td class="text-end">@r.MontoPorDia.ToString("C2")</td>
+                                <td class="text-end">@r.CantidadDias</td>
+                                <td class="text-end fw-bold">@r.Total.ToString("C2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-light">
+                            <td colspan="8" class="text-end text-uppercase small fw-bold text-muted">Total General</td>
+                            <td class="text-end h5 fw-bold text-primary mb-0">@(Model.Results.Sum(x => x.Total).ToString("C2"))</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-info shadow-sm border-0 fade-in">
+        <i class="bi bi-info-circle me-2"></i>No se encontraron resultados con los filtros seleccionados.
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

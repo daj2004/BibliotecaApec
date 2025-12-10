@@ -1,41 +1,45 @@
 @model BibliotecaUNAPEC.Models.Idioma
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Idioma";
 }
 
-<h1>Editar idioma</h1>
-
-<h4>Idioma</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-
-            <div class="form-group mb-3">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+<div class="row justify-content-center fade-in">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h4 class="mb-0 fw-bold text-primary"><i class="bi bi-pencil-square me-2"></i>Editar Idioma</h4>
             </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <input type="hidden" asp-for="Id" />
 
-            <div class="form-group mb-3">
-                <label asp-for="Estado" class="control-label"></label>
-                @Html.EditorFor(m => m.Estado, "Estado")
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
+                    <div class="mb-3">
+                        <label asp-for="Descripcion" class="form-label fw-bold">Nombre del Idioma</label>
+                        <input asp-for="Descripcion" class="form-control form-control-lg" />
+                        <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                    </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+                    <div class="mb-3">
+                        <label asp-for="Estado" class="form-label fw-bold">Estado</label>
+                        <select asp-for="Estado" class="form-select">
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                        <span asp-validation-for="Estado" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver a la lista</a>
-</div>
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

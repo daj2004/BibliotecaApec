@@ -1,71 +1,91 @@
 @model BibliotecaUNAPEC.Models.Libro
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Libro";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center fade-in">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h4 class="mb-0 fw-bold text-primary"><i class="bi bi-pencil-square me-2"></i>Editar Libro</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <input type="hidden" asp-for="Id" />
 
-<h4>Libro</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Descripcion" class="form-label fw-bold">Título del Libro</label>
+                            <input asp-for="Descripcion" class="form-control form-control-lg" />
+                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="SignaturaTopografica" class="form-label fw-bold">Signatura Topográfica</label>
+                            <input asp-for="SignaturaTopografica" class="form-control" />
+                            <span asp-validation-for="SignaturaTopografica" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ISBN" class="form-label fw-bold">ISBN</label>
+                            <input asp-for="ISBN" class="form-control" />
+                            <span asp-validation-for="ISBN" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="TipoBibliografiaId" class="form-label fw-bold">Tipo de Bibliografía</label>
+                            <select asp-for="TipoBibliografiaId" class="form-select" asp-items="ViewBag.TipoBibliografiaId"></select>
+                            <span asp-validation-for="TipoBibliografiaId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="EditoraId" class="form-label fw-bold">Editora</label>
+                            <select asp-for="EditoraId" class="form-select" asp-items="ViewBag.EditoraId"></select>
+                            <span asp-validation-for="EditoraId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="CienciaId" class="form-label fw-bold">Ciencia / Categoría</label>
+                            <select asp-for="CienciaId" class="form-select" asp-items="ViewBag.CienciaId"></select>
+                            <span asp-validation-for="CienciaId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="IdiomaId" class="form-label fw-bold">Idioma</label>
+                            <select asp-for="IdiomaId" class="form-select" asp-items="ViewBag.IdiomaId"></select>
+                            <span asp-validation-for="IdiomaId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="AñoPublicacion" class="form-label fw-bold">Año de Publicación</label>
+                            <input asp-for="AñoPublicacion" class="form-control" />
+                            <span asp-validation-for="AñoPublicacion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Estado" class="form-label fw-bold">Estado</label>
+                            <select asp-for="Estado" class="form-select">
+                                <option value="A">Disponible</option>
+                                <option value="P">Prestado</option>
+                                <option value="E">Extraviado</option>
+                            </select>
+                            <span asp-validation-for="Estado" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="SignaturaTopografica" class="control-label"></label>
-                <input asp-for="SignaturaTopografica" class="form-control" />
-                <span asp-validation-for="SignaturaTopografica" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ISBN" class="control-label"></label>
-                <input asp-for="ISBN" class="form-control" />
-                <span asp-validation-for="ISBN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoBibliografiaId" class="control-label"></label>
-                <select asp-for="TipoBibliografiaId" class="form-control" asp-items="ViewBag.TipoBibliografiaId"></select>
-                <span asp-validation-for="TipoBibliografiaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EditoraId" class="control-label"></label>
-                <select asp-for="EditoraId" class="form-control" asp-items="ViewBag.EditoraId"></select>
-                <span asp-validation-for="EditoraId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CienciaId" class="control-label"></label>
-                <select asp-for="CienciaId" class="form-control" asp-items="ViewBag.CienciaId"></select>
-                <span asp-validation-for="CienciaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdiomaId" class="control-label"></label>
-                <select asp-for="IdiomaId" class="form-control" asp-items="ViewBag.IdiomaId"></select>
-                <span asp-validation-for="IdiomaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AñoPublicacion" class="control-label"></label>
-                <input asp-for="AñoPublicacion" class="form-control" />
-                <span asp-validation-for="AñoPublicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

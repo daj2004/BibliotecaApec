@@ -1,139 +1,203 @@
 ﻿@model BibliotecaUNAPEC.Models.HomeIndexViewModel
 
 @{
-    ViewData["Title"] = "Inicio - Biblioteca UNAPEC";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="container py-4">
-    <div class="text-center mb-4">
-        <h1 class="fw-bold display-6">📚 Sistema de Gestión de Biblioteca UNAPEC</h1>
-        <p class="text-muted mb-0">Selecciona un módulo para continuar:</p>
-    </div>
+<div class="text-center mb-5 fade-in">
+    <h1 class="fw-bold display-5 mb-2">Bienvenido a <span class="text-gradient">Biblioteca UNAPEC</span></h1>
+    <p class="text-muted lead">Sistema integral de gestión académica y bibliotecaria</p>
+</div>
 
-    <div class="row g-3 justify-content-center">
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-primary w-100" href="/TiposBibliografia">📖 Tipos de Bibliografía</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-primary w-100" href="/Editoras">🏢 Editoras</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-primary w-100" href="/Ciencias">🔬 Ciencias</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-primary w-100" href="/Idiomas">🌍 Idiomas</a>
-        </div>
-    </div>
-
-    <div class="row g-3 justify-content-center mt-2">
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-success w-100" href="/Autores">✍️ Autores</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-success w-100" href="/Libros">📚 Libros</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-success w-100" href="/Usuarios">👥 Usuarios</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="btn btn-success w-100" href="/Empleados">👨‍💼 Empleados</a>
-        </div>
-    </div>
-
-    <div class="row g-3 justify-content-center mt-2">
-        <div class="col-md-6 col-sm-12">
-            <a class="btn btn-warning w-100" href="/Prestamos">📗 Préstamos y Devoluciones</a>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <a class="btn btn-info w-100" href="/Reportes">📊 Reportes</a>
-        </div>
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="/Home/AcercaDe" class="btn btn-outline-secondary">
-            ℹ️ Acerca de
+<!-- Dashboard Grid -->
+<div class="row g-4 mb-5">
+    <div class="col-md-3 col-sm-6">
+        <a href="/Libros" class="dashboard-card">
+            <div class="dashboard-icon text-primary"><i class="bi bi-book"></i></div>
+            <div class="dashboard-title">Libros</div>
+            <small class="text-muted mt-1">Gestión de catálogo</small>
         </a>
     </div>
+    <div class="col-md-3 col-sm-6">
+        <a href="/Prestamos" class="dashboard-card">
+            <div class="dashboard-icon text-success"><i class="bi bi-journal-check"></i></div>
+            <div class="dashboard-title">Préstamos</div>
+            <small class="text-muted mt-1">Control de circulante</small>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <a href="/Usuarios" class="dashboard-card">
+            <div class="dashboard-icon text-info"><i class="bi bi-people"></i></div>
+            <div class="dashboard-title">Usuarios</div>
+            <small class="text-muted mt-1">Estudiantes y personal</small>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <a asp-controller="Prestamos" asp-action="Report" class="dashboard-card">
+            <div class="dashboard-icon text-warning"><i class="bi bi-bar-chart-fill"></i></div>
+            <div class="dashboard-title">Reportes</div>
+            <small class="text-muted mt-1">Estadísticas generales</small>
+        </a>
+    </div>
+</div>
 
-    <hr class="my-4">
+<!-- Secondary Actions -->
+<div class="row g-3 justify-content-center mb-5">
+    <div class="col-md-2 col-sm-4">
+        <a href="/TiposBibliografia" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-journal-bookmark fs-4 mb-2 text-secondary"></i>
+            <span>Bibliografías</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <a href="/Autores" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-pen fs-4 mb-2 text-secondary"></i>
+            <span>Autores</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <a href="/Editoras" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-building fs-4 mb-2 text-secondary"></i>
+            <span>Editoras</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <a href="/Ciencias" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-lightbulb fs-4 mb-2 text-secondary"></i>
+            <span>Ciencias</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <a href="/Idiomas" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-translate fs-4 mb-2 text-secondary"></i>
+            <span>Idiomas</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <a href="/Empleados" class="btn btn-light w-100 py-3 shadow-sm border h-100 d-flex flex-column align-items-center justify-content-center">
+            <i class="bi bi-person-badge fs-4 mb-2 text-secondary"></i>
+            <span>Empleados</span>
+        </a>
+    </div>
+</div>
 
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Resumen</h5>
-                    <p>Total libros: <strong>@Model.TotalLibros</strong></p>
-                    <p>Total usuarios: <strong>@Model.TotalUsuarios</strong></p>
-                    <p>Préstamos activos: <strong>@Model.TotalPrestamosActivos</strong></p>
+<div class="row mb-4">
+    <!-- Stats Card -->
+    <div class="col-md-3">
+        <div class="card h-100 bg-gradient-primary text-white border-0">
+            <div class="card-body">
+                <h5 class="card-title text-white-50 mb-4"><i class="bi bi-activity me-2"></i>Resumen</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Total Libros</span>
+                    <span class="h4 mb-0">@Model.TotalLibros</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Usuarios</span>
+                    <span class="h4 mb-0">@Model.TotalUsuarios</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Préstamos Activos</span>
+                    <span class="h4 mb-0">@Model.TotalPrestamosActivos</span>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-9">
-            <form method="get" class="row g-2">
-                <div class="col-md-6">
-                    <input type="text" name="search" value="@Model.Search" placeholder="Buscar libro, ISBN o signatura" class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <select name="cienciaId" class="form-select">
-                        <option value="">Todas las ciencias</option>
-                        @foreach (var c in Model.Ciencias)
-                        {
-                            <option value="@c.Id" selected="@(Model.CienciaId == c.Id ? "selected" : null)">@c.Descripcion</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select name="sort" class="form-select">
-                        <option value="">Orden</option>
-                        <option value="titulo_asc" selected="@(Model.Sort == "titulo_asc" ? "selected" : "")">Título ↑</option>
-                        <option value="titulo_desc" selected="@(Model.Sort == "titulo_desc" ? "selected" : "")">Título ↓</option>
-                        <option value="anyo_desc" selected="@(Model.Sort == "anyo_desc" ? "selected" : "")">Año ↓</option>
-                        <option value="anyo_asc" selected="@(Model.Sort == "anyo_asc" ? "selected" : "")">Año ↑</option>
-                    </select>
-                </div>
-                <div class="col-12 mt-2">
-                    <button class="btn btn-primary">Buscar</button>
-                </div>
-            </form>
-        </div>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Descripción</th>
-                <th>Signatura</th>
-                <th>ISBN</th>
-                <th>Ciencia</th>
-                <th>Idioma</th>
-                <th>Año</th>
-                <th>Estado</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var libro in Model.UltimosLibros)
-            {
-                <tr>
-                    <td>@libro.Descripcion</td>
-                    <td>@libro.SignaturaTopografica</td>
-                    <td>@libro.ISBN</td>
-                    <td>@libro.Ciencia?.Descripcion</td>
-                    <td>@libro.Idioma?.Descripcion</td>
-                    <td>@libro.AñoPublicacion</td>
-                    <td>@libro.Estado</td>
-                    <td>
-                        <a asp-controller="Libros" asp-action="Edit" asp-route-id="@libro.Id">Editar</a> |
-                        <a asp-controller="Libros" asp-action="Details" asp-route-id="@libro.Id">Detalles</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <!-- Search & Filter -->
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Búsqueda Avanzada</h5>
+                <form method="get" class="row g-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input type="text" name="search" value="@Model.Search" placeholder="Título, ISBN o signatura..." class="form-control border-start-0" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="cienciaId" class="form-select">
+                            <option value="">Todas las ciencias</option>
+                            @foreach (var c in Model.Ciencias)
+                            {
+                                <option value="@c.Id" selected="@(Model.CienciaId == c.Id ? "selected" : null)">@c.Descripcion</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="sort" class="form-select">
+                            <option value="">Orden por defecto</option>
+                            <option value="titulo_asc" selected="@(Model.Sort == "titulo_asc" ? "selected" : "")">Título (A-Z)</option>
+                            <option value="titulo_desc" selected="@(Model.Sort == "titulo_desc" ? "selected" : "")">Título (Z-A)</option>
+                            <option value="anyo_desc" selected="@(Model.Sort == "anyo_desc" ? "selected" : "")">Año (Más reciente)</option>
+                            <option value="anyo_asc" selected="@(Model.Sort == "anyo_asc" ? "selected" : "")">Año (Más antiguo)</option>
+                        </select>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button class="btn btn-primary px-4"><i class="bi bi-filter me-1"></i> Filtrar Resultados</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-    @if (Model.TotalPages > 1)
-    {
+<!-- Results Table -->
+<div class="card">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <span class="h5 mb-0">📚 Libros Recientes</span>
+        <a asp-controller="Libros" asp-action="Index" class="btn btn-sm btn-outline-primary">Ver todos</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-custom table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Signatura</th>
+                    <th>ISBN</th>
+                    <th>Ciencia</th>
+                    <th>Idioma</th>
+                    <th>Año</th>
+                    <th>Estado</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var libro in Model.UltimosLibros)
+                {
+                    <tr>
+                        <td class="fw-bold">@libro.Descripcion</td>
+                        <td><span class="badge bg-light text-dark border">@libro.SignaturaTopografica</span></td>
+                        <td class="text-muted small">@libro.ISBN</td>
+                        <td>@libro.Ciencia?.Descripcion</td>
+                        <td>@libro.Idioma?.Descripcion</td>
+                        <td>@libro.AñoPublicacion</td>
+                        <td>
+                            @if (libro.Estado == 'A')
+                            {
+                                <span class="badge bg-success bg-opacity-10 text-success">Disponible</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning bg-opacity-10 text-warning">Prestado</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group">
+                                <a asp-controller="Libros" asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-light" title="Ver detalles"><i class="bi bi-eye"></i></a>
+                                <a asp-controller="Libros" asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-light" title="Editar"><i class="bi bi-pencil"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model.TotalPages > 1)
+{
+    <div class="d-flex justify-content-center mt-4">
         <nav aria-label="Paginación">
             <ul class="pagination">
                 @for (int p = 1; p <= Model.TotalPages; p++)
@@ -150,5 +214,5 @@
                 }
             </ul>
         </nav>
-    }
-</div>
+    </div>
+}
